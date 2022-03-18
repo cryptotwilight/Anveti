@@ -56,4 +56,21 @@ library LAnveti {
         return c; 
     }
 
+    function remove(address a, address[] memory b) pure internal returns (address [] memory){
+        address [] memory c = new address[](b.length-1);
+        uint256 y = 0; 
+        for(uint256 x = 0; x < b.length; x++) {
+            address d = b[x];
+            if( a != d){     
+                if(y == c.length){ // i.e. element not found
+                    return b; 
+                }
+                c[y] = d; 
+                y++;
+           
+            }
+        }
+        return c; 
+    }
+
 }

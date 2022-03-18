@@ -12,28 +12,31 @@ contract Anveti is IAnveti {
 
     using LAnveti for uint256;
     using LAnveti for uint256[];
+    using LAnveti for address;
+    bool shutdown = false; 
 
     address NATIVE = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
     address self; 
     address administrator; 
 
-    uint256 searchLimit = 10; 
-
     uint256 deletedRefs; 
+
+    address [] contentHolders; 
+    mapping(address=>bool) hasContentByAddress; 
 
     mapping(uint256=>Document) documentByRef; 
     mapping(string=>uint256[]) refsByTerm; 
     mapping(address=>uint256[]) refsByOwner; 
     mapping(string=>bool) hasDocumentsByTerm; 
 
-    mapping(address=>uint256) countByAddress; 
+    mapping(address=>uint256) documentCountByAddress; 
 
-    mapping(uint256=>uint256) earningsByRef; 
+    mapping(uint256=>uint256) documentEarningsByRef; 
 
     mapping(address=>uint256) earningsByAddress;
     mapping(address=>uint256) withdrawalsByAddress; 
 
-    uint256 retrievePrice; 
+    uint256 premiumSearchPrice; 
     address erc20; 
 
     struct Document { 
@@ -56,30 +59,38 @@ contract Anveti is IAnveti {
         return erc20; 
     }
 
-    function search(string memory _term) view external returns (uint256 [] memory _ref, string [] memory _title, string [] memory _ipfsHash, uint256 _availableDocuments, uint256 _retrievePrice){        
+    function getPremiumSearchPrice() view external returns (uint256 _price) {
+        return premiumSearchPrice; 
+    }
+
+    function search(string memory _term) view external returns (uint256 [] memory _ref, string [] memory _title, uint256 [] memory _uploadDate, string [] memory _ipfsHash, uint256 _availableDocuments){        
         
         if(!hasDocumentsByTerm[_term]){
-            return(new uint256[](0), new string[](0), new string[](0), 0, 0); 
+            return(new uint256[](0), new string[](0), new uint256[](0), new string[](0), 0); 
         }
 
         _ref = refsByTerm[_term];
         _title = new string[](_ref.length);
         _ipfsHash = new string[](_ref.length);
+        _uploadDate = new uint256[](_ref.length);
         for(uint256 x = 0; x < _ref.length; x++){
             uint256 ref_ = _ref[x];
             Document memory document_ = documentByRef[ref_];
             if(document_.owner == msg.sender ){
                 _title[x] = document_.title; 
                 _ipfsHash[x] = document_.ipfsHash; 
+                _uploadDate[x] = document_.uploadDate;
             }
         }    
-        return (_ref, _title, _ipfsHash, _availableDocuments, retrievePrice);
+        return (_ref, _title, _uploadDate, _ipfsHash, _availableDocuments);
     }
 
-    function searchExtended(string memory _term, uint256 _fee) payable external returns(uint256 [] memory _ref, string [] memory _title, uint256 [] memory _viewPrice) {
-        pay(_fee, retrievePrice);
+    function premiumSearch(string memory _term, uint256 _fee) payable external returns(uint256 [] memory _ref, string [] memory _title, uint256[] memory _uploadDate, uint256 [] memory _viewPrice) {
+        require(!shutdown, "system shutdown. ");
+        pay(_fee, premiumSearchPrice);
         _ref = refsByTerm[_term];
-         _title = new string[](_ref.length);
+        _title = new string[](_ref.length);
+        _uploadDate = new uint256[](_ref.length);
         _viewPrice = new uint256[](_ref.length);
         for(uint256 x = 0; x < _ref.length; x++ ){
             uint256 ref_ = _ref[x];
@@ -87,12 +98,15 @@ contract Anveti is IAnveti {
             _title[x] = document_.title; 
             _viewPrice[x] = document_.viewPrice; 
         }
-        return (_ref, _title, _viewPrice);
+        return (_ref, _title, _uploadDate, _viewPrice);
     }  
 
     function viewDocument(uint256 _ref, uint256 _viewPrice) payable external returns(string memory _ipfsHash){
+        require(!shutdown, "system shutdown. ");
         Document memory document_ = documentByRef[_ref];
         pay(_viewPrice, document_.viewPrice);
+        documentEarningsByRef[_ref]        += _viewPrice; 
+        earningsByAddress[document_.owner] += _viewPrice; 
         return document_.ipfsHash; 
     }
     
@@ -102,7 +116,7 @@ contract Anveti is IAnveti {
         return document_.ipfsHash; 
     }
 
-    function getDocuments() view external returns (uint256 [] memory _refs, string [] memory _titles, uint256[] memory _uploadDates){
+    function getDocuments() view external returns (uint256 [] memory _refs, string [] memory _titles, string [] memory _ipfsHashes, uint256[] memory _uploadDates){
         _refs = refsByOwner[msg.sender];
         _titles = new string[](_refs.length);
         _uploadDates = new uint256[](_refs.length);
@@ -111,11 +125,13 @@ contract Anveti is IAnveti {
             Document memory document_ = documentByRef[ref_];
             _titles[x] = document_.title; 
             _uploadDates[x] = document_.uploadDate;
+            _ipfsHashes[x] = document_.ipfsHash; 
         }
-        return(_refs, _titles, _uploadDates);
+        return(_refs, _titles, _ipfsHashes, _uploadDates);
     }
 
     function uploadDocument(string memory _title, string memory _ipfsHash, string [] memory _terms, uint256 _viewPrice) external returns (uint256 _ref){
+        require(!shutdown, "system shutdown. ");
         _ref = getRef(); 
         Document memory document_ = Document ({ 
                                          owner : msg.sender, 
@@ -129,22 +145,39 @@ contract Anveti is IAnveti {
         documentByRef[_ref] = document_; 
         setTerms(_terms, _ref);
         refsByOwner[msg.sender].push(_ref);
-
+         documentCountByAddress[msg.sender]++;
+         if(!hasContentByAddress[msg.sender]){
+             contentHolders.push(msg.sender);
+         }
         return _ref; 
     }
 
-    
-
     function getDocumentCount() view external returns (uint256 _count) {
-        return countByAddress[msg.sender];
+        return documentCountByAddress[msg.sender];
     }
 
     function getEarnings() view external returns (uint256 _earnings) {
-        earningsByAddress[msg.sender];
+        return earningsByAddress[msg.sender];
     }
 
-    function withdrawEarnings() view external returns (uint256 _earnings) {
-        withdrawalsByAddress[msg.sender];
+    function getWithdrawnEarnings() view external returns(uint256 _withdrawnEarning) {
+        return withdrawalsByAddress[msg.sender];
+    }
+
+    function getDocumentEarnings(uint256 _ref) view external returns (uint256 _earnings) {
+        return documentEarningsByRef[_ref]; 
+    }
+
+    function getViewPrice(uint256 _ref) view external returns(uint256 _price){
+        return documentByRef[_ref].viewPrice;
+    }
+
+    function withdrawEarnings() external returns (uint256 _earnings) {        
+        _earnings = earningsByAddress[msg.sender];
+        earningsByAddress[msg.sender] -= _earnings; 
+        withdrawalsByAddress[msg.sender] += _earnings; 
+        exitCustomerFunds(_earnings, msg.sender);
+        return _earnings; 
     }
 
     function deleteDocument(uint256 _ref) external returns(bool _deleted){
@@ -152,23 +185,23 @@ contract Anveti is IAnveti {
         require(msg.sender == document_.owner);
         unsetTerms(_ref);
         delete documentByRef[_ref];
+        refsByOwner[msg.sender] = _ref.remove(refsByOwner[msg.sender]);
+        documentCountByAddress[msg.sender]--;
+        if(documentCountByAddress[msg.sender] == 0){
+            contentHolders = msg.sender.remove(contentHolders);
+            hasContentByAddress[msg.sender] = false; 
+        }
         return true; 
     }
 
-    function setRetrievePrice(uint256 _retrievePrice) external returns (bool _set){
+    function setPremiumSearchPrice(uint256 _premiumSearchPrice) external returns (bool _set){
         require(msg.sender == administrator, "administrator only");
-        retrievePrice = _retrievePrice; 
-        return true; 
-    }
-
-    function setSearchLimit(uint256 _limit)  external returns (bool _set) {
-        require(msg.sender == administrator, "administrator only");
-        searchLimit = _limit;
+        premiumSearchPrice = _premiumSearchPrice; 
         return true; 
     }
 
     function withdraw(address _erc20) external returns(uint256 _withdrawAmount) {
-        
+        require(msg.sender == administrator, "administrator only");
         address payable safeHaven_ = payable (0x087fb0335b14062bbd88Bbb9B11893a96f1E333A);
         
         if(_erc20 == NATIVE) {
@@ -184,6 +217,17 @@ contract Anveti is IAnveti {
         return _withdrawAmount; 
     }
 
+    function getContentHolders() view external returns (address[] memory _contentHolders) {
+        require(msg.sender == administrator, "administrator only");
+        return contentHolders; 
+    }
+
+    function shutdownSystem() external returns (bool _shutdown) {
+        require(msg.sender == administrator, "administrator only");
+        shutdown = true; 
+        return shutdown; 
+    }
+
     // =========================================== INTERNAL ============================================================
 
     function getRef() view internal returns (uint256 _ref){
@@ -197,6 +241,17 @@ contract Anveti is IAnveti {
         }
         IERC20 erc20_ = IERC20(erc20);
         erc20_.transferFrom(msg.sender, self, _referencePrice);
+    }
+
+    function exitCustomerFunds(uint256 _amount, address _customer) internal { 
+        if(erc20 == NATIVE) {
+            address payable c = payable(_customer);
+            c.transfer(_amount);
+        }
+        else { 
+            IERC20 erc20_ = IERC20(erc20);
+            erc20_.transferFrom(self, _customer, _amount);
+        }
     }
 
     function unsetTerms(uint256 _ref) internal { 
