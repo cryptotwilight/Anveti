@@ -62,6 +62,9 @@
                     <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
                         <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
+                        <a href="faucet.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-battery-charging"></i></span><span class="pcoded-mtext">Faucet</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -76,7 +79,7 @@
                    <div class="b-bg">
                        <i class="feather icon-trending-up"></i>
                    </div>
-                   <span class="b-title">Datta Able</span>
+                   <span class="b-title">Anveti</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="javascript:">
@@ -147,21 +150,22 @@
                                             <h6 class="mb-4">Your Document Count</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><span id="document_count_display">10</span></h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><span id="document_count_display"></span></h3>
                                                 </div>
                                                 <div class="col-3 text-right">
                                                     
                                                 </div>
                                             </div>
                                             <div >
-                                                Earnings to date: <span id="earnings_display">4 AVAX</span>
+                                                Earnings to date: <span id="earnings_display"></span>
                                             </div>
                                             <div >
-                                                Withdrawals to date: <span id="withdrawn_earnings_display"> -4 AVAX</span>
+                                                Withdrawals to date: -<span id="withdrawn_earnings_display"></span>
                                             </div>
                                             <div>
                                                 <button type="button" id="withdraw_button" class="btn btn-danger">Withdraw Funds</button>
                                             </div> 
+                                            <span id="withdrawn_earnings_display_span"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +175,9 @@
                                             <h6 class="mb-4">Your Document Earnings</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><input type="text" id="view_document_earnings_field" class="form-control" placeholder="enter document ref"></h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0">
+                                                        <input type="text" id="view_document_earnings_field" class="form-control" placeholder="enter document ref">
+                                                    </h3>
                                                 </div>
                                                 <div class="col-3 text-right">
                                                    
@@ -179,7 +185,7 @@
                                             </div>
                                             <br/>
                                             <div >
-                                                Earnings to date:<h5><span id="document_earnings_display">0.1 AVAX</span></h5>
+                                                Earnings to date:<h5><span id="document_earnings_display"></span></h5>
                                             </div>
                                             <div>
                                                 <br/>
@@ -236,6 +242,7 @@
                                                     <div class="col-3 text-right">
                                                        <button type="button" id="document_delete_button" class="btn btn-danger" >Delete <i class="feather icon-trash"></i></button>
                                                     </div>
+                                                    <span id="document_delete_display_span"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,6 +271,7 @@
                                                     <div class="col-3 text-right">
                                                        
                                                     </div>
+                                                    <span id="document_price_display"></span>
                                                 </div>                                 
                                             </div>
                                         </div>
@@ -282,63 +290,7 @@
                                         <div class="card-block px-0 py-3">
                                             <div class="table-responsive">
                                                 <table class="table table-hover" id="document_results_table">
-                                                    <tbody>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Isabella Christensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Mathilde Andersen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Karla Sorensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>9 MAY 17:38</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Ida Jorgensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted f-w-300"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>19 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Albert Andersen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply dummy…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>21 July 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                    </tbody>
+                      
                                                 </table>
                                             </div>
                                         </div>
@@ -357,11 +309,7 @@
                                             </div>
                                             <div class="col">
                                                 <label for="upload_title">Upload Title</label>                                                        
-                                                <input type="upload_title" class="form-control" placeholder="enter upload title">
-                                            </div>
-                                            <div class="col">
-                                                <label for="upload_tags">Upload Tags</label>
-                                                <input type="text" id="upload_tags" class="form-control" placeholder="enter upload tags">
+                                                <input type="text" id="upload_title" class="form-control" placeholder="enter upload title">
                                             </div>
                                             <div class="col-auto">
                                                 <label for="upload_file">Upload Search Terms</label>
@@ -379,7 +327,7 @@
                                             <div class="col-auto">
                                                 <button type="button" class="btn btn-success" id="upload_file_button">Upload</button>
                                             </div>
-                                                                                                                              
+                                            <span id="upload_status_span"></span>                                                                      
                                         </div>
                                     </div>
                                     
@@ -448,66 +396,97 @@
     <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/iAnveti.js"></script>
+    <script src="assets/js/iAnvetiAbi.js"></script>
+    <script src="assets/js/iErc20Abi.js"></script>
+
     <script> 
+  
 
-        const onboardButton = ge("connect_web_3");
-        const showWallet = ge("show_wallet");        
+        const onboardButton                     = ge("connect_web_3");
+        const showWallet                        = ge("show_wallet");        
 
-        const generalSearchField            = ge("search_field");
-        const generalSearchButton           = ge("search_button");
-        const generalSearchType             = ge("search_type"); 
-        const premiumSearchApproveButtonSpan = ge("premium_search_approve_button_span");
+        const generalSearchField                = ge("search_field");
+        const generalSearchButton               = ge("search_button");
+        const generalSearchType                 = ge("search_type"); 
+        const premiumSearchApproveButtonSpan    = ge("premium_search_approve_button_span");
         
         generalSearchType.addEventListener('click', showPremiumFee);
         generalSearchButton.addEventListener('click', search);
         
-        const premiumSearchFeeDisplay       = ge("premium_search_fee_display");
+        const premiumSearchFeeDisplay           = ge("premium_search_fee_display");
         
         var premiumSearchApproveButton;                 
-        
-        const availableDocumentsDisplay     = ge("available_documents_display");
-        const retrievePriceDisplay          = ge("retrieve_price_display");
 
-        const documentCountDisplay          = ge("document_count_display");
-        const earningsDisplay               = ge("earnings_display");
-        const withdrawnEarningsDisplay      = ge("withdrawn_earnings_display");
-        const withdrawButton                = ge("withdraw_button");
+        function premiumSearchApprove() { 
+            anvetiContract.methods.getPremiumSearchPrice().call({from : account})
+            .then(function(response){
+                console.log(response);
+
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+        
+        const availableDocumentsDisplay         = ge("available_documents_display");
+        const retrievePriceDisplay              = ge("retrieve_price_display");
+
+        const documentCountDisplay              = ge("document_count_display");
+        const earningsDisplay                   = ge("earnings_display");
+        const withdrawnEarningsDisplay          = ge("withdrawn_earnings_display");
+        const withdrawButton                    = ge("withdraw_button");
+        const withdrawnEarningsDisplaySpan      = ge("withdrawn_earnings_display_span");
         withdrawButton.addEventListener('click', withdraw);
 
 
-        const viewDocumentEarningsField     = ge("view_document)earnings_field"); 
-        const documentEarningsDisplay       = ge("document_earnings_display");
-        const viewDocumentEarningsButton    = ge("view_document_earnings_button");
-        viewDocumentEarningsButton.addEventListener('click', viewDocumentEarnings);
+        const viewDocumentEarningsField         = ge("view_document_earnings_field"); 
+        const documentEarningsDisplay           = ge("document_earnings_display");
+        const viewDocumentEarningsButton        = ge("view_document_earnings_button");
+        viewDocumentEarningsButton.addEventListener('click', viewDocumentEarnings); 
         
-        const premiumDocumentRefField       = ge("premium_document_ref_field");
-        const premiumDocumentViewPriceDisplay = ge("premium_document_view_price_display");
-        const approvePremiumButton          = ge("approve_premium_button");
-        const view_premium_button           = ge("view_premium_button");
+        const documentPriceField                = ge("document_price_ref");
+        const documentPriceButton               = ge("document_price_button");
+        const documentPriceDisplay              = ge("document_price_display");
+        documentPriceButton.addEventListener('click', viewDocumentPrice);
+
         
+        const premiumDocumentRefField           = ge("premium_document_ref_field");
+        const premiumDocumentViewPriceDisplay   = ge("premium_document_view_price_display");
+        const approvePremiumButton              = ge("approve_premium_button");
+        const viewPremiumButton               = ge("view_premium_button");
+        viewPremiumButton.addEventListener('click', viewPremium);
 
-        const findDocumentField             = ge("find_document_field");
-        const findButton                    = ge("find_button");
+        const findDocumentField                 = ge("find_document_field");
+        const findButton                        = ge("find_button");
+        findButton.addEventListener('click', find);
 
-        const documentDeleteRef             = ge("document_delete_ref");
-        const documentDeleteButton          = ge("document_delete_button");
 
-        const documentResultsTable          = ge("document_results_table");
+        const documentDeleteRef                 = ge("document_delete_ref");
+        const documentDeleteButton              = ge("document_delete_button");
+        const documentDeleteDisplaySpan         = ge("document_delete_display_span");
+        documentDeleteButton.addEventListener('click', deleteDocument);
 
-        const uploadTitle                   = ge("upload_title");
-        const uploadTags                    = ge("upload_tags");
-        const uploadSearchTerms             = ge("upload_search_terms"); 
-        const uploadViewPrice               = ge("upload_view_price");
-        const uploadFile                    = ge("upload_file");
 
-        const uploadFileButton               = ge("upload_file_button");
+        const documentResultsTable              = ge("document_results_table");
+
+        const uploadTitle                       = ge("upload_title");
+        const uploadSearchTerms                 = ge("upload_search_terms"); 
+        const uploadViewPrice                   = ge("upload_view_price");
+        const uploadFile                        = ge("upload_file");
+
+        const uploadFileButton                  = ge("upload_file_button");
+        const uploadStatusSpan                = ge("upload_status_span");
         uploadFileButton.addEventListener('click', upload);
+
+        //========================== FUNCTIONS ====================
 
         const web3 = new Web3(window.ethereum);
 
-        const anvetiAddress = "0xA39E15a6783b57159fA42345dD813fc96D57885b";
+        const anvetiAddress = "0xc65f0EFD331Ee06A91EEa540C30E881616615ffa";
         const anvetiContract = new web3.eth.Contract(iAnvetiAbi, anvetiAddress);
+
+        const ierc20Address = "0x8A771Ad05172cA1ADee6d233a907Fc1E7797b201";
+        const ierc20Contract = new web3.eth.Contract(iErc20Abi, ierc20Address);
 
         const ipfs = window.IpfsHttpClientLite('https://ipfs.infura.io:5001')
         const buffer = window.IpfsHttpClientLite.Buffer;
@@ -557,6 +536,7 @@
             });
             account = accounts[0];
             showWallet.innerHTML = "<b>Connected Wallet :: " + account + "</b>";
+            loadStats();
         }
 
         //We create a new MetaMask onboarding object to use in our app
@@ -582,12 +562,126 @@
             }
         };
 
-        function showPremiumFee() { 
+        function loadStats() {
+            anvetiContract.methods.getDocumentCount().call({from : account}) 
+            .then(function(response){
+                console.log(response);
+                documentCountDisplay.innerHTML = response; 
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+
+            anvetiContract.methods.getEarnings().call({from : account})
+            .then(function(response){
+                console.log(response);
+                earningsDisplay.innerHTML = response;            
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+
+            anvetiContract.methods.withdrawEarnings().call({from : account})
+            .then(function(response){
+                withdrawnEarningsDisplay.innerHTML = response; 
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        
+        }
+        
+        function viewDocumentPrice() { 
+            var docRef = documentPriceField.value; 
+            anvetiContract.methods.getViewPrice(docRef).call({from : account})
+            .then(function(response){
+                console.log(response);
+                documentPriceDisplay.innerHTML = "<center> <h4> PRICE ::"+response+"</h4></center>"
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+        async function deleteDocument() { 
+            var docRef = documentDeleteRef.value; 
+            anvetiContract.methods.find(docRef).send({from : account})
+            .then(function(response){
+                console.log(response);
+                documentDeleteDisplaySpan.innerHTML = " Deleted Doc :: "+docRef+" : " + response; 
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+
+        async function withdraw() { 
+            anvetiContract.methods.withdrawEarnings().send({from : account})
+            .then(function(response){
+                console.log(response);
+                withdrawnEarningsDisplaySpan.innerHTML = "Withdrawn :: " +response; 
+                loadStats();
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+
+        async function viewDocumentEarnings() {
+            var docRef = viewDocumentEarningsField.value; 
+            anvetiContract.methods.getDocumentEarnings(docRef).call({from : account})
+            .then(function(response){
+                console.log(response);
+                documentEarningsDisplay.innerHTML = response; 
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+        async function find() { 
+            var docRef = findDocumentField.value;
+            anvetiContract.methods.findDocument(docRef).call({from : account})
+            .then(function(response){
+                console.log(response);
+                window.open("http://ipfs.io/ipfs/"+response); 
+                findDocumentField.value = "";
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        }
+
+
+        async function viewPremium() { 
+            var docRef =premiumDocumentRefField.value;
+            anvetiContract.methods.getViewPrice(docRef).call({from : account})
+            .then(function(response){     
+                console.log(response);       
+                var viewPrice = response; 
+                var docRef = premiumDocumentRefField.value;
+                anvetiContract.methods.viewDocument(docRef, viewPrice).call({from : account})
+                .then(function(response){
+                    console.log(response);
+                    window.open("http://ipfs.io/ipfs/"+response);                    
+                })
+                .catch(function(err){
+                    console.log(err);
+                }); 
+            })
+            .catch(function(err){
+               console.log(err);
+            });
+        }
+
+        async  function showPremiumFee() { 
             if(generalSearchType.value === 'premium'){
                 anvetiContract.methods.getPremiumSearchPrice().call({from : account})
                 .then(function(response){
                     console.log(response);
-                    premiumSearchFeeDisplay.innerHTML = response; 
+                    premiumSearchFeeDisplay.innerHTML = "<div> Premium Search Fee: "+response+"</div>"; 
                     premiumSearchApproveButtonSpan.innerHTML = "<button type=\"button\" id=\"premium_search_approve_button\" class=\"btn btn-primary\">Approve <i class=\"feather icon-thumbs-up\"></i></button>";                   
                     premiumSearchApproveButton = ge("premium_search_approve_button");
                     premiumSearchApproveButton.addEventListener('click', premiumSearchApprove); 
@@ -602,7 +696,7 @@
             }
         }
 
-        function upload() { 
+        async function upload() { 
 
             ipfs.add(uploadFile.files[0])
             .then(function(response) {
@@ -610,6 +704,9 @@
                 var ipfsHash =  ""+response[0].hash;
                 console.log(ipfsHash);
                 
+
+                console.log(uploadTitle);
+
                 var title = uploadTitle.value; 
                 var terms = uploadSearchTerms.value.split(",");
                 console.log(terms);
@@ -618,7 +715,8 @@
                 anvetiContract.methods.uploadDocument(title, ipfsHash, terms, viewPrice).send({from : account})
                 .then(function(response){
                     console.log(response);
-
+                    uploadStatusSpan.innerHTML = "<a href=\"https://rinkeby.etherscan.io/tx/"+response.blockHash+"\">"+response.blockHash+"</a>";
+                    clearUpload(); 
                 })
                 .catch(function(err){
                     console.log(err);
@@ -629,13 +727,22 @@
             })
         }
 
-        function search() {
+        function clearUpload() { 
+            uploadFile.value =""; 
+            uploadTitle.value = "";
+            uploadSearchTerms.value = ""; 
+            uploadViewPrice.value = "";
+        }
+
+        async function search() {
             var searchType = generalSearchType.value; 
             if(searchType === 'default') {
                 var term = generalSearchField.value; 
+                console.log(term)
                 anvetiContract.methods.search(term).call({from : account})
                 .then(function(response){
                     console.log(response);
+
                     var refs = response._ref; 
                     var titles = response._title; 
                     var uploadDates = response._uploadDate; 
@@ -644,7 +751,7 @@
                     retrievePriceDisplay.innerHTML = response._retrievePrice; 
                     for(var x = 0; x < refs.length; x++){
                         var row = documentResultsTable.insertRow();
-                        createStandardRow (row, refs[x], title[x], uploadDate[x], ipfsHashs[x]);
+                        createStandardRow (row, refs[x], titles[x], uploadDates[x], ipfsHashs[x]);
                     }                    
                 })
                 .catch(function(err){
@@ -676,7 +783,7 @@
         }
 
 
-        function createStandardRow (row, ref, title, uploadDate, ipfsHash){ 
+        async function createStandardRow (row, ref, title, uploadDate, ipfsHash){ 
             var refCell = getCell(row);
             var titleCell = getCell(row);
             var uploadDateCell = getCell(row);
@@ -684,7 +791,7 @@
             var refCell = getCell(row);
             var h6 = ce("h6");
             h6.setAttribute("class", "text-muted");
-            refCell.append(h6);
+            refCell.appendChild(h6);
             var refTxt = text(ref);
             h6.append(refTxt);
             
@@ -697,7 +804,7 @@
             h6t.append(titleTxt);
 
             var uploadDateCell = getCell(row);            
-            var h6u = ce(h6);
+            var h6u = ce("h6");
             uploadDateCell.append(h6u);
             h6u.setAttribute("class", "text-muted");
             uploadDateCell.append(h6u);
@@ -705,53 +812,50 @@
             h6u.append(dateTxt);
             
             var ipfsHashCell = getCell(row);
-            var h6v = ce(h6);
+            var h6v = ce("h6");
             ipfsHashCell.append(h6v);            
             h6v.setAttribute("class", "text-muted");            
-            viewPriceCell.append(h6v);            
             var a = ce("a");
             h6v.append(a);  
-            a.setAttribute("href", "http://ipfs.io/ipfs"+ipfsHash);
-            var viewTxt = text(viewPrice);
-            a.append(viewTxt);        
+            a.setAttribute("href", "http://ipfs.io/ipfs/"+ipfsHash);
+            a.setAttribute("target","_blank");
+            var hashTxt = text(ipfsHash);
+            a.append(hashTxt);        
         }
 
-        function createPremiumRow(row,ref, title, uploadDate, viewPrice){
+        async function createPremiumRow(row,ref, title, uploadDate, viewPrice){
             var refCell = getCell(row);
             var h6 = ce("h6");
             h6.setAttribute("class", "text-muted");
-            refCell.append(h6);
+            refCell.appendChild(h6);
             var refTxt = text(ref);
-            h6.append(refTxt);
+            h6.appendChild(refTxt);
             
             var titleCell = getCell(row);
             var h6t = ce("h6");
-            titleCell.append(h6t);
             h6t.setAttribute("class", "text-muted");
-            titleCell.append(h6t);
+            titleCell.appendChild(h6t);
             var titleTxt = text(title);
-            h6t.append(titleTxt);
+            h6t.appendChild(titleTxt);
 
             var uploadDateCell = getCell(row);            
-            var h6u = ce(h6);
-            uploadDateCell.append(h6u);
+            var h6u = ce("h6");
             h6u.setAttribute("class", "text-muted");
-            uploadDateCell.append(h6u);
+            uploadDateCell.appendChild(h6u);
             var dateTxt = text((new Date(uploadDate*1000)).toISOString());
-            h6u.append(dateTxt);
+            h6u.appendChild(dateTxt);
             
             var viewPriceCell = getCell(row);
-            var h6v = ce(h6);
-            viewPriceCell.append(h6v);            
-            h6v.setAttribute("class", "text-muted");
-            viewPriceCell.append(h6v);
+            var h6v = ce("h6");
+            viewPriceCell.appendChild(h6v);            
+            h6v.setAttribute("class", "text-muted");            
             var viewTxt = text(viewPrice);
-            h6v.append(viewTxt);                            
+            h6v.aappendChild(viewTxt);                            
         }
 
         function getCell(row) {
             var cell = row.insertCell(); 
-            cell.setAttribute
+            return cell; 
         }
 
         function ce(element){
@@ -767,10 +871,7 @@
         }
 
         function clearTable(table) {
-            var length = table.childNodes; 
-            for(var x = 0; x < length; x++){
-                table.childNodes[0].remove; 
-            }
+            table.innerHTML = "";
         }
 
     </script>

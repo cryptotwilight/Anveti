@@ -30,7 +30,7 @@ iAnvetiAbi = [
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "_document",
+				"name": "_ipfsHash",
 				"type": "string"
 			}
 		],
@@ -96,6 +96,77 @@ iAnvetiAbi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getPremiumSearchPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_retrievePrice",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ref",
+				"type": "uint256"
+			}
+		],
+		"name": "getViewPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_viewPrice",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_term",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_fee",
+				"type": "uint256"
+			}
+		],
+		"name": "premiumSearch",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "_ref",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_title",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_uploadDate",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_viewPrice",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -116,6 +187,11 @@ iAnvetiAbi = [
 				"type": "string[]"
 			},
 			{
+				"internalType": "uint256[]",
+				"name": "_uploadDate",
+				"type": "uint256[]"
+			},
+			{
 				"internalType": "string[]",
 				"name": "_ipfsHash",
 				"type": "string[]"
@@ -124,48 +200,9 @@ iAnvetiAbi = [
 				"internalType": "uint256",
 				"name": "_availableDocuments",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_retrievePrice",
-				"type": "uint256"
 			}
 		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_term",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_fee",
-				"type": "uint256"
-			}
-		],
-		"name": "searchExtended",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "ref",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "title",
-				"type": "string[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "_viewPrice",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -177,7 +214,7 @@ iAnvetiAbi = [
 			},
 			{
 				"internalType": "string",
-				"name": "_document",
+				"name": "_ipfsHash",
 				"type": "string"
 			},
 			{
@@ -219,7 +256,7 @@ iAnvetiAbi = [
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "_document",
+				"name": "_ipfsHash",
 				"type": "string"
 			}
 		],
