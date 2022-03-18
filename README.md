@@ -21,5 +21,9 @@ The 'Default' search will only search your own files and will return a count of 
 
 When entering search terms these must be comma separated in the field with no spaces. 
 
+All your data uploads are hosted on IPFS in the clear i.e. no encryption
+
+The IPFS hash to your file is presented to you and only you for free unless you set the view price to zero whereby any user can view your data for free
+
 
  
